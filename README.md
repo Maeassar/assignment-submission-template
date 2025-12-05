@@ -45,19 +45,19 @@ Hadoop版本：2.10.1
 ![017f0598b1094e57ff780d266ebeee78](picture/3.jpg)
 再开一下spark-shell看一下，也没有问题：
 
-![ca8ccadf74e65ac52dfab40fb6be2489](picture/4.png)
+![ca8ccadf74e65ac52dfab40fb6be2489](picture/4.jpg)
 
 随后使用maven编译wordcount代码，提交jar包，使用--conf spark.shuffle.manager=hash控制使用hash方式提交还是sort方式提交，以下是一个提交后的spark UI的environment示例，可以看到后者的shuffle是hash：
 
-![61dd5ed6caa2b575e3f944d4981ea839](picture/5.png)
+![61dd5ed6caa2b575e3f944d4981ea839](picture/5.jpg)
 
-![ced3d79ca51b63e289dfabf3b9502725](picture/6.png)
+![ced3d79ca51b63e289dfabf3b9502725](picture/6.jpg)
 
 
 
 ### 实验结果与分析
 
-![image-20251205113646138](picture/7.jpg)
+![image-20251205113646138](picture/7.png)
 
 ![image-20251205113604297](picture/8.png)
 
