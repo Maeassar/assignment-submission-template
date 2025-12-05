@@ -35,7 +35,7 @@ Hadoop版本：2.10.1
 
 主节点进程为：
 
-![19b21c955a76420dcf1b983c03c02b13](picture/1.jpg)
+![19b21c955a76420dcf1b983c03c02b13](picture/1.png)
 
 从节点进程为：
 
