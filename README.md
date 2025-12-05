@@ -1,35 +1,68 @@
-# 作业提交模板
-
-```
-.
-├── code/                   # 所有实验代码
-└── README.md               # 项目核心文档
-```
+# 实验记录
 
 ## 研究目的
-题目中已给出。
+
+比较Spark中的两种Shuffle算法：基于Hash和基于Sort
 
 ## 研究内容
-题目中已给出，可在题目中已经给出的内容基础上增加研究内容，**如有增加，请明确标注增加的部分**。
+
+对比分析Spark中基于Hash和基于Sort的两种Shuffle算法的执行流程，探讨它们各自的
+优缺点及适用场景
 
 ## 实验
 
 ### 实验环境
-* 硬件：集群配置，包括节点数 **(>=3)**、CPU 核数、内存大小、网络带宽、存储类型（SSD / HDD）等。
 
-* 软件：操作系统、JDK 版本、各框架版本等。
+ubuntu 18.04
+
+JDK版本：1.8
+
+Spark版本：1.6.1
+
+Hadoop版本：2.10.1
+
+本实验采用多台主机三个节点，一个主节点两个从节点，内存4G，硬盘30G
 
 ### 实验负载
-详细描述使用的数据集和工作负载。
+
+选择wordcount词频统计任务，使用了合成数据集以及wiki数据集（https://www.kaggle.com/datasets/mikeortman/wikipedia-sentences）两种数据集，创建以及抽样了不同规模（1M～1G）的数据量进行对比实验。
 
 ### 实验步骤
-列出执行实验的关键步骤，并对关键步骤进行截图，如 MapReduce / Spark / Flink 部署成功后的进程信息、作业执行成功的信息等，**截图能够通过显示用户账号等个性化信息佐证实验的真实性**。
+
+列举一些关键步骤证明：
+
+部署完spark以及Hadoop后jps一下查看进程是否有问题：
+
+主节点进程为：
+
+![19b21c955a76420dcf1b983c03c02b13](picture/1.jpg)
+
+从节点进程为：
+
+
+
+![017f0598b1094e57ff780d266ebeee78](/Users/tangyi/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_ymvsom72ynsr22_68ac/temp/RWTemp/2025-12/0825530cd33909dec38ae9fe2d6e29a0/017f0598b1094e57ff780d266ebeee78.png)
+
+再开一下spark-shell看一下，也没有问题：
+
+![ca8ccadf74e65ac52dfab40fb6be2489](/Users/tangyi/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_ymvsom72ynsr22_68ac/temp/RWTemp/2025-12/9e20f478899dc29eb19741386f9343c8/ca8ccadf74e65ac52dfab40fb6be2489.jpg)
+
+随后使用maven编译wordcount代码，提交jar包，使用--conf spark.shuffle.manager=hash控制使用hash方式提交还是sort方式提交，以下是一个提交后的spark UI的environment示例，可以看到后者的shuffle是hash：
+
+![61dd5ed6caa2b575e3f944d4981ea839](/Users/tangyi/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_ymvsom72ynsr22_68ac/temp/RWTemp/2025-12/9e20f478899dc29eb19741386f9343c8/61dd5ed6caa2b575e3f944d4981ea839.jpg)
+
+![ced3d79ca51b63e289dfabf3b9502725](/Users/tangyi/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_ymvsom72ynsr22_68ac/temp/RWTemp/2025-12/9e20f478899dc29eb19741386f9343c8/ced3d79ca51b63e289dfabf3b9502725.jpg)
+
+
 
 ### 实验结果与分析
-使用表格和图表直观呈现结果，并解释结果背后的原因。
+
+![image-20251205113646138](/Users/tangyi/Library/Application Support/typora-user-images/image-20251205113646138.png)
+
+![image-20251205113604297](/Users/tangyi/Library/Application Support/typora-user-images/image-20251205113604297.png)
+
+![image-20251205113626949](/Users/tangyi/Library/Application Support/typora-user-images/image-20251205113626949.png)
 
 ### 结论
-总结研究的主要发现。
 
-### 分工
-尽可能详细地写出每个人的具体工作和贡献度，并按贡献度大小进行排序。
+![截屏2025-12-05 11.51.50](/Users/tangyi/Library/Application Support/typora-user-images/截屏2025-12-05 11.51.50.png)
